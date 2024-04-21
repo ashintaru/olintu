@@ -33,15 +33,15 @@ class Quiz extends Component
         });
    
 
-        // $client = OpenAI::client("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");
-        $result= OpenAI::chat()->create([
-            'model' => 'gpt-3.5-turbo',
-            'messages' => [
-                ['role' => 'user', 'content' => 'Hello!'],
-            ],
-        ]);
+        // // $client = OpenAI::client("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");
+        // $result= OpenAI::chat()->create([
+        //     'model' => 'gpt-3.5-turbo',
+        //     'messages' => [
+        //         ['role' => 'user', 'content' => 'Hello!'],
+        //     ],
+        // ]);
         
-        dd($result->choices[0]->message->content); // Outputs: Hello! How can I assist you today?
+        // dd($result->choices[0]->message->content); // Outputs: Hello! How can I assist you today?
         
         
         if($this->chkQuiz())
