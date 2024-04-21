@@ -8,7 +8,7 @@ use App\Models\progress;
 use Livewire\Attributes\Rule;
 use App\Models\question;
 use Illuminate\Support\Facades\Session;
-
+use OpenAI\Laravel\Facades\OpenAI;
 class Quiz extends Component
 {
     public $question ;
@@ -31,6 +31,19 @@ class Quiz extends Component
                 return $question->answer = array([$question->answer,'fake_answ',"fake"]);
             }
         });
+   
+
+        // $client = OpenAI::client("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");
+        $result= OpenAI::chat()->create([
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                ['role' => 'user', 'content' => 'Hello!'],
+            ],
+        ]);
+        
+        dd($result->choices[0]->message->content); // Outputs: Hello! How can I assist you today?
+        
+        
         if($this->chkQuiz())
             return view('livewire.quiz',['message'=>"you have already taken the exam"])->extends('layouts.app');
         else
