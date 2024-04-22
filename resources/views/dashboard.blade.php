@@ -131,24 +131,26 @@
             </div>
         </section>
         <section>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">  
-                    @foreach($lessons as $lesson)
-                    <div class="p-4 rounded shadow" style="background: #FFDAC2;">
-                        <h3 class="text-3xl mb-2">{{$lesson->title}}</h3>
-                        <p class="text-gray-600 h-16">
-                            @if($lesson->summary == null)
-                                Learn the basic features of PHP
-                            @else
-                               {{$lesson->summary}}
-                            @endif
-                        </p>
-                        <button class="bg-black text-white px-4 py-2 my-2 mx-auto block rounded shadow">
-                            <a href="{{ URL('lesson_id/'.$lesson->lessonId) }}">
-                                Learn Now!
-                            </a>
-                        </button>
-                    </div>
-                @endforeach
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @if(count($lessons)>0)
+                        @foreach($lessons as $lesson)
+                        <div class="p-4 rounded shadow" style="background: #FFDAC2;">
+                            <h3 class="text-3xl mb-2">{{$lesson->title}}</h3>
+                            <p class="text-gray-600 h-16">
+                                @if($lesson->summary == null)
+                                    Learn the basic features of PHP
+                                @else
+                                {{$lesson->summary}}
+                                @endif
+                            </p>
+                            <button class="bg-black text-white px-4 py-2 my-2 mx-auto block rounded shadow">
+                                <a href="{{ URL('lesson_id/'.$lesson->lessonId) }}">
+                                    Learn Now!
+                                </a>
+                            </button>
+                        </div>
+                    @endforeach
+                    @endif
                 </div>
         </section>
         <section id="learn-progress" class="mb-8">
