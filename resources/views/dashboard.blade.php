@@ -206,7 +206,7 @@
                                 </svg>
                             </dd>
                         </dl>
-                        @if (count($lessons)>0)
+                        @if ($progress)
                             @foreach($progress as $prog)
                                 <dl class="flex items-center justify-between">
                                     <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal">{{$prog->lesson->title}}</dt>
