@@ -131,9 +131,9 @@
             </div>
         </section>
         <section>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    @if(count($lessons)>0)
-                        @foreach($lessons as $lesson)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                @if(count($lessons)>0)
+                    @foreach($lessons as $lesson)
                         <div class="p-4 rounded shadow" style="background: #FFDAC2;">
                             <h3 class="text-3xl mb-2">{{$lesson->title}}</h3>
                             <p class="text-gray-600 h-16">
@@ -150,8 +150,8 @@
                             </button>
                         </div>
                     @endforeach
-                    @endif
-                </div>
+                @endif
+            </div>
         </section>
         <section id="learn-progress" class="mb-8">
             <h2 class="text-2xl font-semibold mb-4">Lesson Progress</h2>
@@ -206,12 +206,14 @@
                                 </svg>
                             </dd>
                         </dl>
-                        @foreach($progress as $prog)
-                            <dl class="flex items-center justify-between">
-                                <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal">{{$prog->lesson->title}}</dt>
-                                <dd id="t1" class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-gray-600 dark:text-gray-300">{{$prog->percent}}%</dd>
-                            </dl>
-                        @endforeach
+                        @if (count($lessons)>0)
+                            @foreach($progress as $prog)
+                                <dl class="flex items-center justify-between">
+                                    <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal">{{$prog->lesson->title}}</dt>
+                                    <dd id="t1" class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-gray-600 dark:text-gray-300">{{$prog->percent}}%</dd>
+                                </dl>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
