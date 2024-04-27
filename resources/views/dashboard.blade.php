@@ -206,14 +206,14 @@
                                 </svg>
                             </dd>
                         </dl>
-                        @if (count($progress)>0)
+                        {{-- @if (count($progress)>0)
                             @foreach($progress as $prog)
                                 <dl class="flex items-center justify-between">
                                     <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal">{{$prog->lesson->title}}</dt>
                                     <dd id="t1" class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-gray-600 dark:text-gray-300">{{$prog->percent}}%</dd>
                                 </dl>
                             @endforeach
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>
