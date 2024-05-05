@@ -13,36 +13,39 @@
                 <span class="sr-only">Open user menu</span>
                 <img class="w-8 h-8 rounded-full" src="{{ asset('images/user-icon.png') }}" alt="user photo">
             </button>
-
-            <div class="z-50 hidden ml-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-                <div class="px-4 py-3" role="none">
-                    <p id="user-profile-name" class="text-sm text-gray-900 dark:text-white" role="none"></p>
-                    @if(Session::get('user')->role == 1)
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">Admin</p>
-                    @else
-                        <p id="user-profile-number" class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none"></p>
-                    @endif
+            @if(!empty(Session::get('user')->role))
+                <div class="z-50 hidden ml-2 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+                    <div class="px-4 py-3" role="none">
+                        <p id="user-profile-name" class="text-sm text-gray-900 dark:text-white" role="none"></p>
+                            @if(Session::get('user')->role == 1)
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">Admin</p>
+                            @else
+                                <p id="user-profile-number" class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none"></p>
+                            @endif
+                    </div>
+                    <ul class="py-1" role="none">
+                        @if(!empty(Session::get('user')->role))
+                            @if(Session::get('user')->role == 1)
+                            <li>
+                                <a href="{{ URL('account_management') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Account Management</a>
+                            </li>
+                            <li>
+                                <a href="{{ URL('lesson_management') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Lesson Management</a>
+                            </li>
+                            @endif
+                        @endif
+                        <li>
+                            <a href="{{ route('grade.records') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Records</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('settings') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="py-1" role="none">
-                    @if(Session::get('user')->role == 1)
-                    <li>
-                        <a href="{{ URL('account_management') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Account Management</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL('lesson_management') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Lesson Management</a>
-                    </li>
-                    @endif
-                    <li>
-                        <a href="{{ route('grade.records') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Records</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('settings') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
-                    </li>
-                </ul>
-            </div>
+            @endif
         </div>
     </nav>
 
@@ -132,25 +135,28 @@
         </section>
         <section>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                @if(count($lessons)>0)
-                    @foreach($lessons as $lesson)
-                        <div class="p-4 rounded shadow" style="background: #FFDAC2;">
-                            <h3 class="text-3xl mb-2">{{$lesson->title}}</h3>
-                            <p class="text-gray-600 h-16">
-                                @if($lesson->summary == null)
-                                    Learn the basic features of PHP
-                                @else
-                                {{$lesson->summary}}
-                                @endif
-                            </p>
-                            <button class="bg-black text-white px-4 py-2 my-2 mx-auto block rounded shadow">
-                                <a href="{{ URL('lesson_id/'.$lesson->lessonId) }}">
-                                    Learn Now!
-                                </a>
-                            </button>
-                        </div>
-                    @endforeach
+                @if(!empty(Session::get('user')->role))
+                    @if(count($lessons)>0)
+                        @foreach($lessons as $lesson)
+                            <div class="p-4 rounded shadow" style="background: #FFDAC2;">
+                                <h3 class="text-3xl mb-2">{{$lesson->title}}</h3>
+                                <p class="text-gray-600 h-16">
+                                    @if($lesson->summary == null)
+                                        Learn the basic features of PHP
+                                    @else
+                                    {{$lesson->summary}}
+                                    @endif
+                                </p>
+                                <button class="bg-black text-white px-4 py-2 my-2 mx-auto block rounded shadow">
+                                    <a href="{{ URL('lesson_id/'.$lesson->lessonId) }}">
+                                        Learn Now!
+                                    </a>
+                                </button>
+                            </div>
+                        @endforeach
+                    @endif
                 @endif
+
             </div>
         </section>
         <section id="learn-progress" class="mb-8">
