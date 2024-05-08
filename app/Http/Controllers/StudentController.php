@@ -15,5 +15,4 @@ class StudentController extends Controller
         // dd($progress);
         return view('dashboard',['lessons'=>$lessons,'progress'=>$progress]);
     }
-
 }

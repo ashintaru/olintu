@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\progressCtr;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StudentController;
@@ -38,6 +39,11 @@ Route::group(['middleware' => 'auth.student'], function() {
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
     Route::view('/settings', 'settings')->name('settings');
 });
+
+
+Route::get('/progress/{id}', [progressCtr::class, 'show'])->name('progressManagement');
+Route::delete('/delete_progress/{id}', [progressCtr::class,'destroy'])->name('progress_delete');
+
 Route::view('/topic', [TopicController::class, 'topic'])->name('topic');
 Route::get('/topic/{value}', [TopicController::class, 'openDashboardTopic'])->name('dashboard.topic');
 Route::view('/about', 'about')->name('about');

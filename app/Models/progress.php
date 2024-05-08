@@ -19,4 +19,7 @@ class progress extends Model
     public function lesson(){
         return $this->belongsTo(lsesson::class,'lesson_id','lessonId');
     }
+    public function user(){
+        return $this->belongsTo(Student::class,'student_id','STUDENT_ID');
+    }
 }
